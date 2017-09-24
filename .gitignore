@@ -1,0 +1,16 @@
+＃ App Engine app.yaml configuration file
+app.yaml
+
+# python configuration file
+config.py
+
+# Mac OS X
+*.DS_Store
+
+# Generated .pyc files
+*.pyc
+
+
+# Sublime Text - Editor project files
+*.sublime-project
+*.sublime-workspace

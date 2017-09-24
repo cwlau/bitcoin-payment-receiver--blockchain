@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bitcoin Payment Receiver Demo</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% block extra_scripts %}
+{% endblock %}
+
+</head>
+<body>
+
+
+<div class="container">
+  <div class="page-header">
+    <h1>Bitcoin Payment Receiver Demo</h1>
+  </div>
+
+  <div>
+    <ul class="nav nav-pills">
+      <li role="presentation" {% if current_page == 'home' %}class="active"{% endif %}><a href="/">Home</a></li>
+      <li role="presentation" {% if current_page == 'payment' %}class="active"{% endif %}><a href="/payment">Create Payment</a></li>
+      <li role="presentation" {% if current_page == 'received' %}class="active"{% endif %}><a href="/received">Received Payments</a></li>
+      <li role="presentation"><a href="https://github.com/cwlau/bitcoin-payment-receiver-demo" target="_blank">Source</a></li>
+    </ul>
+  </div>
+
+  <hr/>
+
+
+{% block main %}
+
+
+
+{% endblock %}
+
+</div>
+
+
+
+
+
+
+</body>
+</html>

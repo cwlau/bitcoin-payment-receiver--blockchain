@@ -1,0 +1,27 @@
+application: YOUR_APP_ID_HERE
+version: demo
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: .*
+  script: main.app
+
+
+env_variables:
+  APP_SECRET: YOUR_CONFIG_HERE
+  XPUB: YOUR_CONFIG_HERE
+  RECAPTCHA_SITEKEY: YOUR_CONFIG_HERE
+  RECAPTCHA_SECRET: YOUR_CONFIG_HERE
+  BLOCKCHAIN_API_KEY: YOUR_BLOCKCHAIN_API_KEY_HERE
+  SKIP_RECAPTCHA_TEST: no
+
+
+libraries:
+- name: webapp2
+  version: "2.5.2"

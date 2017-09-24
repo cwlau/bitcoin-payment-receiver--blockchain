@@ -1,0 +1,50 @@
+{% extends './base.html' %}
+
+{% block extra_scripts %}
+
+{% endblock %}
+
+
+{% block main %}
+
+<div>
+  <h3>Received Payments</h3>
+
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Create Time</th>
+      <th>Payment Time</th>
+      <th>Payment Bitcoin Address</th>
+      <th>Received Amount</th>
+      <th>Bitcoin transaction ID</th>
+      <th>Payment Status</th>
+    </tr>
+    {% for tx in transactions %}
+    <tr>
+      <td>{{ tx.key.id }}</td>
+      <td>{{ tx.create_time }}</td>
+      <td>{% if not tx.payment_time %}N/A{% else %}{{ tx.payment_time }}{% endif %}</td>
+      <td>{{ tx.payment_address }}</td>
+      <td>{% if not tx.amount %}N/A{% else %}{{ tx.amount }}{% endif %}</td>
+      <td>{% if not tx.tx_id %}N/A{% else %}{{ tx.tx_id }}{% endif %}</td>
+      <td>{% if tx.payment_complete %}<span class="label label-success">Paid</span>{% else %}<span class="label label-warning">Pending</span>{% endif %}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="7"><div style="padding:40px;text-align:center">No transactions found</div></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% if complete %}
+  <a href="/received">View completed transactions</a>
+  {% else %}
+  <a href="/received?complete=false">View pending transactions</a>
+  {% endif %}
+
+</div>
+
+
+
+{% endblock %}

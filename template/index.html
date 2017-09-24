@@ -1,0 +1,31 @@
+{% extends './base.html' %}
+
+
+{% block main %}
+
+<div>
+  <h3>About</h3>
+  <div>This demo demonstrates how Bitcoin payment integrates with Google App Engine and receives signals after payments are made. To try it, start with "Create payment" button below.</div>
+</div>
+
+<div>
+  <div><a class="btn btn-primary" href="/payment">Create Payment</a></div>
+  <div class="text-muted">Note: All payment made will be used to support the maintenance process, so they are not refundable.</div>
+
+</div>
+
+
+<div>
+  <h3>Source Code</h3>
+  <div>Source code is available on <a href="https://github.com/cwlau/bitcoin-payment-receiver-demo" target="_blank">this GitHub repo</a>.</div>
+
+</div>
+
+<div>
+  <h3>License</h3>
+  <div>MIT.  Use it with whatever you want.</div>
+
+</div>
+
+
+{% endblock %}

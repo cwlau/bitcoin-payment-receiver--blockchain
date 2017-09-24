@@ -1,0 +1,63 @@
+{% extends './base.html' %}
+
+{% block extra_scripts %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+{% endblock %}
+
+
+{% block main %}
+
+<div>
+  <h3>Step 1 of 2: Create Payment Transaction</h3>
+
+  <form >
+
+
+    <div class="form-group">
+      <span class="help-block">
+        Please prove you are not a robot. This will create a new transaction and generate a unique bitcoin address to receive payment for this transaction.
+      </span>
+    </div>
+
+    <div class="g-recaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
+
+    <div class="form-group">
+    </div>
+
+    <div class="form-group">
+      <input type="button" class="btn btn-primary init-tx" value="Create Transaction and Generate Payment Address" />
+    </div>
+  </form>
+
+</div>
+
+
+
+<script type="text/javascript">
+$(".init-tx").click(function(){
+  $.ajax({
+    "type": "post",
+    "data": {
+      "recaptcha-response": $(".g-recaptcha-response").val(),
+      "amount": $("#amount_input").val()
+    },
+
+  }).done(function(data){
+    if(data.success){
+      alert("New order successfully created. You are being redirected to transaction page.");
+
+      // Redirect to transaction URL
+      window.location.href = "/payment/" + data.data.tx_id;
+
+    }else{
+      alert(data.message);
+    }
+  }).fail(function(){
+    alert("Failed to create new order");
+  });
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends './base.html' %}
+
+{% block extra_scripts %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<style type="text/css">
+.text-label{display: inline-block;width: 260px;}
+</style>
+{% endblock %}
+
+
+{% block main %}
+
+<div>
+  <h3>Step 2 of 2: Make Payment</h3>
+
+  <form >
+
+
+    <div class="form-group">
+      {# <label for="amount_input">Fill in transaction amount</label> #}
+      {# <input type="text" class="form-control" id="amount_input" placeholder="Amount in BTC" name="amount" /> #}
+      <span class="help-block">
+        Transaction record has been created. <br/><br/>In order to continue, send some small amount of Bitcoins to the address shown below. Once payment is confirmed, the application will be notified via API webhook.
+
+      </span>
+    </div>
+
+    <hr/>
+
+    <div class="form-group">
+    </div>
+
+    <div class="form-group">
+      <span class="text-label">Transaction Creation Time: </span>{{ tx.create_time }}
+    </div>
+
+    <div class="form-group">
+      <span class="text-label">Payment Address:</span> <code>{{ tx.payment_address }}</code>
+    </div>
+
+    <div class="form-group">
+      <span class="text-label">Payment Status:</span>
+      {% if tx.payment_complete %}
+      <span class="label label-success">Paid</span>
+      {% else %}
+      <span class="label label-warning">Pending</span>
+      {% endif %}
+
+    </div>
+
+    {% if tx.payment_complete %}
+    <div class="form-group">
+      <span class="text-label">Blockchain Transaction Time:</span> {{ tx.payment_time }}
+    </div>
+    {% endif %}
+
+    <hr/>
+
+    <div class="form-group">
+      <input type="button" class="btn btn-primary" value="Refresh Transaction Status" />
+      <input type="button" class="btn btn-default" value="View all received payments" />
+    </div>
+  </form>
+
+</div>
+
+
+
+<script type="text/javascript">
+$(".init-tx").click(function(){
+  $.ajax({
+    "type": "post",
+    "data": {
+      "recaptcha-response": $(".g-recaptcha-response").val(),
+      "amount": $("#amount_input").val()
+    },
+
+  }).done(function(data){
+    if(data.success){
+      console.log(data.message);
+      console.log(data.data.tx_id);
+      alert("New order successfully created. You are being redirected to transaction page.");
+
+      // Redirect to transaction URL
+      window.location.href = "/payment/" + data.data.tx_id;
+
+    }else{
+      alert(data.message);
+    }
+  }).fail(function(){
+    alert("Failed to create new order");
+  });
+});
+
+</script>
+
+{% endblock %}
