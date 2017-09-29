@@ -14,7 +14,6 @@ from models import Transaction
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         render(self, 'template/index.html', {'current_page': 'home'})
-        logging.info(os.environ.get('RECAPTCHA_SECRET'))
 
 
 class MakePaymentHandler(webapp2.RequestHandler):
@@ -25,8 +24,6 @@ class MakePaymentHandler(webapp2.RequestHandler):
         })
 
     def post(self):
-        logging.info(os.environ.get('SKIP_RECAPTCHA_TEST'))
-
         if not os.environ.get('SKIP_RECAPTCHA_TEST'):
             recaptcha_response = self.request.get('recaptcha-response')
 
@@ -48,6 +45,12 @@ class MakePaymentHandler(webapp2.RequestHandler):
 
         # Generate new bitcoin address for this transaction
         address_result = generate_new_bitcoin_address(new_transaction.key.id())
+
+        if 'message' in address_result:
+            return json_response(self, {
+                'success': False,
+                'message': address_result['message']
+            })
 
         new_transaction.payment_address = address_result['address']
         new_transaction.put()
@@ -121,7 +124,7 @@ class CallbackHandler(webapp2.RequestHandler):
             return
 
         transaction.payment_time = datetime.datetime.now()
-        transaction.amount = value
+        transaction.amount = float(value)
         transaction.payment_complete = True
         transaction.tx_id = transaction_hash
         transaction.put()

@@ -22,7 +22,7 @@
     </tr>
     {% for tx in transactions %}
     <tr>
-      <td>{{ tx.key.id }}</td>
+      <td>{% if tx.payment_complete %}{{ tx.key.id }}{% else %}-- Hidden ID --{% endif %}</td>
       <td>{{ tx.create_time }}</td>
       <td>{% if not tx.payment_time %}N/A{% else %}{{ tx.payment_time }}{% endif %}</td>
       <td>{{ tx.payment_address }}</td>
