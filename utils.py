@@ -18,11 +18,10 @@ def generate_new_bitcoin_address(tx_id):
 
     params = {
         'xpub': os.environ.get('XPUB'),
-        'callback_url': callback_url,
+        'callback': callback_url,
         'key': os.environ.get('BLOCKCHAIN_API_KEY')
     }
-    # logging.info(params)
-    # return {"address": "19jJyiC6DnKyKvPg38eBE8R6yCSXLLEjqw", "index": 23, "callback": "https://mystore.com?invoice_id=058921123"}
+    # logging.info(callback_url)
 
     form_data = urllib.urlencode(params)
     result = urlfetch.fetch(
@@ -32,7 +31,6 @@ def generate_new_bitcoin_address(tx_id):
     logging.info(result.content)
     result_json = json.loads(result.content)
     return result_json
-
 
 
 def recaptcha_verify(self, recaptcha_input):
