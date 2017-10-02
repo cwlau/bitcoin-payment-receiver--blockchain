@@ -18,6 +18,7 @@
       <th>Payment Bitcoin Address</th>
       <th>Received Amount</th>
       <th>Bitcoin transaction ID</th>
+      <th>Network</th>
       <th>Payment Status</th>
     </tr>
     {% for tx in transactions %}
@@ -25,14 +26,15 @@
       <td>{% if tx.payment_complete %}{{ tx.key.id }}{% else %}-- Hidden ID --{% endif %}</td>
       <td>{{ tx.create_time }}</td>
       <td>{% if not tx.payment_time %}N/A{% else %}{{ tx.payment_time }}{% endif %}</td>
-      <td>{{ tx.payment_address }}</td>
+      <td><code>{{ tx.payment_address }}</code></td>
       <td>{% if not tx.amount %}N/A{% else %}{{ tx.amount }}{% endif %}</td>
       <td>{% if not tx.tx_id %}N/A{% else %}{{ tx.tx_id }}{% endif %}</td>
+      <td>{% if tx.is_mainnet %}Mainnet{% else %}Testnet{% endif %}</td>
       <td>{% if tx.payment_complete %}<span class="label label-success">Paid</span>{% else %}<span class="label label-warning">Pending</span>{% endif %}</td>
     </tr>
     {% empty %}
     <tr>
-      <td colspan="7"><div style="padding:40px;text-align:center">No transactions found</div></td>
+      <td colspan="8"><div style="padding:40px;text-align:center">No transactions found</div></td>
     </tr>
     {% endfor %}
   </table>
