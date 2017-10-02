@@ -41,6 +41,9 @@ class MakePaymentHandler(webapp2.RequestHandler):
 
         # create a new transaction for this payment
         new_transaction = Transaction()
+        new_transaction.populate(
+            is_mainnet=True,
+        )
         new_transaction.put()
 
         # Generate new bitcoin address for this transaction
