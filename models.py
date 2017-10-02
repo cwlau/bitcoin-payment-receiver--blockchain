@@ -7,4 +7,5 @@ class Transaction(ndb.Model):
     payment_time = ndb.DateTimeProperty()
     payment_address = ndb.StringProperty()
     tx_id = ndb.StringProperty()
+    is_mainnet = ndb.BooleanProperty(default=False)
     payment_complete = ndb.BooleanProperty(default=False)

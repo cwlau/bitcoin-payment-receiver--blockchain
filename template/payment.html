@@ -19,6 +19,29 @@
         This will create a new transaction and generate a unique address to receive payment for this transaction in the specified network.
       </span>
     </div>
+
+    <label>Select network</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="network" id="option_testnet" value="testnet" disabled />
+        Bitcoin Testnet
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="network" id="option_mainnet" value="mainnet" checked disabled >
+        Bitcoin Mainnet
+      </label>
+
+      <span class="help-block">
+        blockchain.info API does not have a testnet service.
+      </span>
+    </div>
+
+
+    <div class="form-group">
+    </div>
+
     <label>Please prove you are not a robot.</label>
 
     <div class="g-recaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
